@@ -463,7 +463,9 @@ ui <- dashboardPage(
                                  ,selected = "Kongsberg") 
         ),
         box(title = "Data description",
-            p("This Shiny App uses an API link to Statistics Norway to display felled Red deer in Norway by year.")
+            p("This Shiny App uses an API link to Statistics Norway to display felled Red deer in Norway by year. 
+              You can subset the data to display. 
+              The first plot is plotted using Plotly so you can download the image (the second plot - regional data - still needs to be converted)")
       ),
       fluidRow(
         box(title = "Red deer felled"
