@@ -6,6 +6,7 @@ library(dplyr)
 library(tidyverse)
 library(devtools)
 library(dashboardthemes)
+library(plotly)
 source_url("https://raw.githubusercontent.com/DrMattG/ShinyNINA/master/Shinytheme_NINA.R")
 ###########################
 ###########################
@@ -469,7 +470,7 @@ ui <- dashboardPage(
             ,status = "primary"
             ,solidHeader = TRUE
             ,collapsible = TRUE
-            ,plotOutput("mortality", height = "500px")
+            ,plotly::plotlyOutput("mortality", height = "500px")
         ),
         box(title = "Region"
             ,status = "primary"
@@ -500,7 +501,7 @@ server <- function(input, output) {
   # tidyr::separate(`interval (year)`,"-")
   #creating the valueBoxOutput content
   #creating the plotOutput content
-  output$mortality <- renderPlot({
+  output$mortality <- plotly::renderPlotly({
     ggplot(data = data(),
            aes(x=`interval (year)`, y=value, fill=age) )+
       geom_bar(position = "dodge", stat = "identity") +
@@ -511,7 +512,7 @@ server <- function(input, output) {
       theme(plot.title = element_text(hjust = 0.5))
   })
   output$region <- renderPlot({
-    ggplot(data = Rdata(),
+  ggplot(data = Rdata(),
            aes(x=`interval (year)`, y=value, fill=age) )+
       geom_bar(position = "dodge", stat = "identity") +
       labs(x="Year", y="Number felled")+
